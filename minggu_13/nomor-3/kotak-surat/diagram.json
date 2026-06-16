@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "author": "Dela Fajar Mulia",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": -201, "left": 143.4, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid1", "top": -194.65, "left": -159.76, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo1", "top": -11.6, "left": 19.2, "attrs": {} },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic1", "top": 1.5, "left": -157.7, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -330, "left": 176.6, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": -320.4, "left": 311, "attrs": { "color": "limegreen" } },
+    { "type": "wokwi-resistor", "id": "r1", "top": -254.4, "left": 345.05, "rotate": 90, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top": -254.4, "left": 181.85, "rotate": 90, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "uno:3.3V", "rfid1:3.3V", "orange", [ "v0" ] ],
+    [ "uno:GND.1", "rfid1:GND", "black", [ "v0" ] ],
+    [ "uno:9", "rfid1:RST", "purple", [ "v0" ] ],
+    [ "uno:10", "rfid1:SDA", "blue", [ "v0" ] ],
+    [ "uno:11", "rfid1:MOSI", "green", [ "v0" ] ],
+    [ "uno:12", "rfid1:MISO", "yellow", [ "v0" ] ],
+    [ "uno:13", "rfid1:SCK", "cyan", [ "v0" ] ],
+    [ "uno:6", "servo1:PWM", "orange", [ "v0" ] ],
+    [ "uno:5V", "servo1:V+", "red", [ "v0" ] ],
+    [ "uno:GND.2", "servo1:GND", "black", [ "v0" ] ],
+    [ "uno:2", "ultrasonic1:TRIG", "green", [ "v307.2", "h-456.3" ] ],
+    [ "uno:3", "ultrasonic1:ECHO", "green", [ "v297.6", "h-436.8" ] ],
+    [ "uno:5V", "ultrasonic1:VCC", "red", [ "v134.3", "h-389.8" ] ],
+    [ "uno:GND.3", "ultrasonic1:GND", "black", [ "v0" ] ],
+    [ "uno:7", "r1:2", "green", [ "v0" ] ],
+    [ "r1:1", "led2:A", "green", [ "h0" ] ],
+    [ "uno:GND.1", "led2:C", "black", [ "v0" ] ],
+    [ "uno:8", "r2:2", "green", [ "v0" ] ],
+    [ "r2:1", "led1:A", "green", [ "h0" ] ],
+    [ "uno:GND.1", "led1:C", "black", [ "h-66.9", "v-96" ] ]
+  ],
+  "dependencies": {}
+}
