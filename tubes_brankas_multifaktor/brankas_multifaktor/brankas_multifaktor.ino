@@ -47,7 +47,7 @@
 // ---------- PIN SERVO ----------
 #define SERVO_PIN     13
 #define SERVO_LOCK    0     // sudut posisi terkunci
-#define SERVO_UNLOCK  90    // sudut posisi terbuka
+#define SERVO_UNLOCK  45    // sudut posisi terbuka
 
 // ---------- PIN DHT11 ----------
 #define DHT_PIN        27
@@ -121,10 +121,6 @@ void setup() {
   SPI.begin();
   rfid.PCD_Init();
 
-  // byte v = rfid.PCD_ReadRegister(MFRC522::VersionReg);
-  // Serial.print("RC522 Version: 0x");
-  // Serial.println(v, HEX);
-
   // OLED
   Wire.begin(OLED_SDA, OLED_SCL);
   display.begin(OLED_ADDR, true);
@@ -150,9 +146,15 @@ void loop() {
   if (now - lastTempCheck >= TEMP_INTERVAL) {
     lastTempCheck = now;
     float t = dht.readTemperature();
-    if (!isnan(t)) {
+    if (isnan(t)) {
+      Serial.println("[DHT] Gagal baca (NaN) - cek wiring/pull-up");
+    } else {
       suhuTerakhir = t;
       hazardActive = (t >= HAZARD_TEMP);
+      Serial.print("[DHT] Suhu: ");
+      Serial.print(t);
+      Serial.print(" C | Hazard: ");
+      Serial.println(hazardActive ? "AKTIF (servo dipaksa kunci)" : "tidak");
     }
   }
 
@@ -351,13 +353,6 @@ void tampilkanPesan(String judul, String l1, String l2, String l3) {
   display.println(l2);
   display.setCursor(0, 44);
   display.println(l3);
-
-  // Serial.print("UID terbaca: ");
-  // for (byte i = 0; i < rfid.uid.size; i++) {
-  //   Serial.print(rfid.uid.uidByte[i]);
-  //   Serial.print(" ");
-  // }
-  // Serial.println();
 
   display.display();
 }
